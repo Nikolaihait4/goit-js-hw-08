@@ -5,14 +5,15 @@ const messageInput = document.querySelector('textarea[name="message"]');
 // console.log(form);
 const LOCALSTORAGE_KEY = 'feedback-form-state';
 const formData = {};
-textArea();
 form.addEventListener('input', throttle(savedForm, 500));
-
+textArea();
+// функция для записи в локал сторедж
 function savedForm(e) {
   formData[e.target.name] = e.target.value;
   localStorage.setItem(LOCALSTORAGE_KEY, JSON.stringify(formData));
 }
 
+// функция для отправки формы
 form.addEventListener('submit', OnFormSubmit);
 
 function OnFormSubmit(e) {
