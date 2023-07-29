@@ -18,20 +18,24 @@ form.addEventListener('submit', OnFormSubmit);
 
 function OnFormSubmit(e) {
   e.preventDefault();
-  console.log(formData);
-  e.currentTarget.reset();
-  localStorage.removeItem(LOCALSTORAGE_KEY);
+  if (emailInput.value === '' || messageInput.value === '') {
+    alert('Все поля должны быть заполнены!!!');
+  } else {
+    console.log(formData);
+    // e.currentTarget.reset();
+    form.reset();
+    localStorage.removeItem(LOCALSTORAGE_KEY);
+  }
 }
 
+// функция на перезагрузку страницы
 function textArea() {
   const savedText = localStorage.getItem(LOCALSTORAGE_KEY);
   if (savedText) {
-    try {
-      let formenData = JSON.parse(savedText);
-      emailInput.value = formenData.email;
-      messageInput.value = formenData.message;
-    } catch (error) {
-      console.error('Error parsing saved form data:', error);
-    }
+    const formDataInput = JSON.parse(savedText);
+    emailInput.value = formDataInput.email ?? '';
+    messageInput.value = formDataInput.message ?? '';
+    formData.email = emailInput.value;
+    formData.message = messageInput.value;
   }
 }
